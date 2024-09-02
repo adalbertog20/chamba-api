@@ -1,0 +1,42 @@
+[
+    {
+        "name": "Albañil",
+        "description": "Trabaja en la construcción de estructuras como casas, edificios y muros."
+    },
+    {
+        "name": "Carpintero",
+        "description": "Trabaja con madera, construyendo y reparando muebles, puertas, ventanas, etc."
+    },
+    {
+        "name": "Electricista",
+        "description": "Instala y repara sistemas eléctricos en casas, edificios y otros lugares."
+    },
+    {
+        "name": "Fontanero",
+        "description": "Instala y repara sistemas de tuberías y cañerías en casas, edificios y otros lugares."
+    },
+    {
+        "name": "Jardinero",
+        "description": "Cuida y mantiene jardines, parques y espacios verdes."
+    },
+    {
+        "name": "Mecánico",
+        "description": "Repara y mantiene vehículos y maquinaria."
+    },
+    {
+        "name": "Pintor",
+        "description": "Pinta paredes, techos y otros elementos de casas, edificios y otros lugares."
+    },
+    {
+        "name": "Plomero",
+        "description": "Instala y repara sistemas de tuberías y cañerías en casas, edificios y otros lugares."
+    },
+    {
+        "name": "Soldador",
+        "description": "Une piezas de metal mediante la aplicación de calor."
+    },
+    {
+        "name": "Técnico en aire acondicionado",
+        "description": "Instala y repara sistemas de aire acondicionado en casas, edificios y otros lugares."
+    }
+]
