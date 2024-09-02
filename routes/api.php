@@ -17,6 +17,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('/register', [UserController::class, 'store']);
+Route::post('/login', [AuthController::class, 'login']);
+Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -27,10 +31,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('/updateJobs', [UserController::class, 'updateJobs']);
     Route::get('/showJobs', [UserController::class, 'showJobs']);
 });
-
-Route::post('/register', [UserController::class, 'store']);
-Route::post('/login', [AuthController::class, 'login']);
-Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/chamba', [ChambaController::class, 'index'])->name('chamba.index');

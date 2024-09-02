@@ -3,46 +3,31 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\User\StoreUserRequest;
+use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
-use Hash;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function store(Request $request)
+    public function store(StoreUserRequest $request)
     {
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-            //password_confirmation
-        ]);
+        $validatedData = $request->validated();
+        $validatedData['password'] = Hash::make($request->password);
 
-        $user = User::create([
-            'name' => $validatedData['name'],
-            'email' => $validatedData['email'],
-            'password' => Hash::make($validatedData['password']),
-        ]);
+        $user = User::create($validatedData);
 
         return response()->json([
             'message' => 'User created',
             'user' => $user,
         ], 201);
     }
-    public function update(Request $request)
+    public function update(UpdateUserRequest $request)
     {
         $user = $request->user();
 
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'phone_number' => ['required', 'string', 'min:10', 'max:12', Rule::unique('users')->ignore($user->id)],
-            'street' => ['required', 'string', 'max:255'],
-            'postal_code' => ['required', 'string', 'min:5'],
-            'city' => ['required', 'string', 'max:255', 'in:La Paz, San Jose del Cabo']
-        ]);
-
-        $user->update($request->all());
+        $user->update($request->validated());
 
         return response()->json([
             'message' => 'User Updated Successfully',
