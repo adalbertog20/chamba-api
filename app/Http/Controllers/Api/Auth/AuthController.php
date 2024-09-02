@@ -3,18 +3,14 @@
 namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Traits\ApiResponses;
-use Illuminate\Http\Request;
+use App\Http\Requests\User\LoginRequest;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        $loginData = $request->validate([
-            'email' => 'required|email',
-            'password' => 'required'
-        ]);
+        $loginData = $request->validated();
 
         if (Auth::attempt($loginData)) {
             $user = Auth::user();

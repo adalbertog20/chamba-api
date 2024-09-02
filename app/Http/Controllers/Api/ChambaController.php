@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Requests\Chamba\StoreChambaRequest;
+use App\Http\Requests\Chamba\UpdateChambaRequest;
 use App\Models\Chamba;
 
 use App\Http\Controllers\Controller;
@@ -32,17 +34,12 @@ class ChambaController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(StoreChambaRequest $request)
     {
         if(Gate::allows('isWorker')) {
-            $request->validate([
-                'title' => ['required', 'string', 'max:255'],
-                'description' => ['required', 'string'],
-                'job_id' => ['required', 'string', 'exists:jobs,id'],
-                'worker_id' => ['required', 'integer', 'exists:users,id'],
-            ]);
+            $validatedData = $request->validated();
 
-            $chamba = Chamba::create($request->all());
+            $chamba = Chamba::create($validatedData);
 
             return response()->json([
                 "message" => "Chamba Created Successfully",
@@ -55,24 +52,14 @@ class ChambaController extends Controller
         }
     }
 
-    public function update(Request $request, $id, Chamba $chamba)
+    public function update(UpdateChambaRequest $request, $id, Chamba $chamba)
     {
         $chamba = Chamba::where('id', $id)->firstOrFail();
 
-        $validatedData = $request->validate([
-            'title' => ['string', 'max:255'],
-            'description' => ['string'],
-            'job_id' => ['string', 'exists:jobs,id'],
-            'worker_id' => ['integer', 'exists:users,id'],
-        ]);
-
-        $chamba->title = $validatedData['title'] ?? $chamba->title;
-        $chamba->description = $validatedData['description'] ?? $chamba->description;
-        $chamba->job_id = $validatedData['job_id'] ?? $chamba->job_id;
-        $chamba->worker_id = $validatedData['worker_id'] ?? $chamba->worker_id;
+        $validatedData = $request->validated();
 
         $this->authorize('update', $chamba);
-        $chamba->save();
+        $chamba->update($validatedData);
 
         return response()->json([
             "message" => "Chamba Updated Successfully",
