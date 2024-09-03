@@ -32,8 +32,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/showJobs', [UserController::class, 'showJobs']);
 });
 
+Route::get('/chamba', [ChambaController::class, 'index'])->name('chamba.index');
+
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('/chamba', [ChambaController::class, 'index'])->name('chamba.index');
     Route::post('/chamba', [ChambaController::class, 'store'])->name('chamba.store');
     Route::get('/chamba/{id}', [ChambaController::class, 'show'])->name('chamba.show');
     Route::delete('/chamba/{id}', [ChambaController::class, 'destroy'])->name('chamba.destroy');

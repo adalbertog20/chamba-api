@@ -15,8 +15,14 @@ class ChambaController extends Controller
 {
     public function index()
     {
+        $chambas = DB::table('chambas as c')
+            ->join('users as worker', 'c.worker_id', '=', 'worker.id')
+            ->join('jobs as job', 'c.job_id', '=', 'job.id')
+            ->select('c.*', 'worker.name as worker_name', 'job.name as trabajo_name')
+            ->get();
+
         return response()->json([
-            'chambas' => Chamba::all()
+            'chambas' => $chambas
         ]);
     }
 
@@ -36,7 +42,7 @@ class ChambaController extends Controller
 
     public function store(StoreChambaRequest $request)
     {
-        if(Gate::allows('isWorker')) {
+        if (Gate::allows('isWorker')) {
             $validatedData = $request->validated();
 
             $chamba = Chamba::create($validatedData);
