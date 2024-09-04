@@ -7,6 +7,7 @@ use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -18,11 +19,21 @@ class UserController extends Controller
 
         $user = User::create($validatedData);
 
+        if (Auth::attempt($request->only('email', 'password'))) {
+            $token = Auth::user()->createToken('authToken')->plainTextToken;
+            return response()->json([
+                'message' => 'User create and logged in',
+                'user' => $user,
+                'token' => $token
+            ], 201);
+        }
+
         return response()->json([
             'message' => 'User created',
             'user' => $user,
         ], 201);
     }
+
     public function update(UpdateUserRequest $request)
     {
         $user = $request->user();
