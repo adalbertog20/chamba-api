@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->foreignId('request_chamba_id')->constrained('request_chambas');
+            $table->foreignId('chamba_id')->constrained('chambas');
             $table->foreignId('client_id')->constrained('users');
             $table->foreignId('worker_id')->constrained('users');
             $table->float('rating');

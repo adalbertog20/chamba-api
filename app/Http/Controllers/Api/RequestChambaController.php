@@ -24,14 +24,13 @@ class RequestChambaController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'client_id' => ['required', 'integer', 'exists:users,id'],
             'worker_id' => ['required', 'integer', 'exists:users,id'],
             'chamba_id' => ['required', 'integer', 'exists:chambas,id'],
             'message' => ['required', 'string'],
         ]);
 
         $request = RequestChamba::create([
-            'client_id' => $validatedData['client_id'],
+            'client_id' => auth()->user()->id,
             'worker_id' => $validatedData['worker_id'],
             'chamba_id' => $validatedData['chamba_id'],
             'message' => $validatedData['message'],

@@ -47,3 +47,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::put('/requests/{id}', [\App\Http\Controllers\Api\RequestChambaController::class, 'updateStatus']);
 });
 
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::post('/reviews', [\App\Http\Controllers\Api\ReviewController::class, 'store']);
+    Route::get('/reviews/{id}', [\App\Http\Controllers\Api\ReviewController::class, 'index'])->withoutMiddleware(['auth:sanctum']);
+});

@@ -13,6 +13,6 @@ class ChambaSeeder extends Seeder
      */
     public function run(): void
     {
-        $chambas = Chamba::factory(10)->create();
+        Chamba::factory(5)->create();
     }
 }

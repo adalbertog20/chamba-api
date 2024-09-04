@@ -2,13 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\Chamba;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Chamba>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\RequestChamba>
  */
-class ChambaFactory extends Factory
+class RequestChambaFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,10 +19,11 @@ class ChambaFactory extends Factory
     public function definition(): array
     {
         return [
-            'title' => $this->faker->jobTitle(),
-            'description' => $this->faker->paragraph(),
-            'job_id' => $this->faker->numberBetween(1, 10),
+            'client_id' => User::factory(['role' => 0]),
             'worker_id' => User::factory(['role' => 1]),
+            'chamba_id' => Chamba::factory(),
+            "message" => $this->faker->sentence(),
+            'status' => 'pending',
         ];
     }
 }

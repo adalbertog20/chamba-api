@@ -10,6 +10,10 @@ class Review extends Model
     use HasFactory;
 
     protected $fillable = [
-        
+        'request_chamba_id',
+        'client_id',
+        'worker_id',
+        'rating',
+        'comment'
     ];
 }

@@ -16,10 +16,10 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             JobSeeder::class,
+            ChambaSeeder::class,
+            RequestChambaSeeder::class,
         ]);
-        $this->call([
-            ChambaSeeder::class
-        ]);
+
         DB::table('users')->insert([
             'name' => 'Duver',
             'email' => 'duver@gmail.com',
