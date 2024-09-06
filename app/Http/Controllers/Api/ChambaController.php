@@ -18,7 +18,7 @@ class ChambaController extends Controller
         $chambas = DB::table('chambas as c')
             ->join('users as worker', 'c.worker_id', '=', 'worker.id')
             ->join('jobs as job', 'c.job_id', '=', 'job.id')
-            ->select('c.*', 'worker.name as worker_name', 'job.name as trabajo_name')
+            ->select('c.*', 'worker.name as worker_name', 'job.name as job_name')
             ->get();
 
         return response()->json([
