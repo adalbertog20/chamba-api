@@ -23,9 +23,9 @@ class ReviewController extends Controller
     {
         $validatedData = $request->validated();
         $rc = DB::table('request_chambas')->where('id', $validatedData['request_chamba_id'])->first();
-        $chambaId = $rc->chamba_id;
         $validatedData['client_id'] = auth()->user()->id;
-        $validatedData['chamba_id'] = $chambaId;
+        $validatedData['chamba_id'] = $rc->chamba_id;
+        $validatedData['worker_id'] = $rc->worker_id;
         $review = Review::create($validatedData);
 
         ReviewStored::dispatch($review);

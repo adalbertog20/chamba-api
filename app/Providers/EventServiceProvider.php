@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Events\ReviewStored;
 use App\Listeners\UpdateChambaRating;
+use App\Listeners\UpdateWorkerRating;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -22,6 +23,7 @@ class EventServiceProvider extends ServiceProvider
         ],
         ReviewStored::class => [
             UpdateChambaRating::class,
+            UpdateWorkerRating::class
         ]
     ];
 

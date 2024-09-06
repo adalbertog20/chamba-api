@@ -66,4 +66,12 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Job::class, 'job_user');
     }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'worker_id');
+    }
+    public function chambas()
+    {
+        return $this->hasMany(Chamba::class);
+    }
 }

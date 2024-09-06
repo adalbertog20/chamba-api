@@ -25,7 +25,6 @@ class StoreReviewRequest extends FormRequest
     {
         return [
             'request_chamba_id' => 'required|exists:request_chambas,id',
-            'worker_id' => 'required|exists:users,id',
             'rating' => 'required|numeric|min:1|max:5',
             'comment' => 'nullable|string',
         ];

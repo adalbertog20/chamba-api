@@ -17,4 +17,16 @@ class Review extends Model
         'rating',
         'comment'
     ];
+    public function worker()
+    {
+        return $this->belongsTo(User::class, 'worker_id');
+    }
+    public function client()
+    {
+        return $this->belongsTo(User::class, 'client_id');
+    }
+    public function chamba()
+    {
+        return $this->belongsTo(Chamba::class);
+    }
 }
