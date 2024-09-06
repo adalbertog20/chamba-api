@@ -51,3 +51,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/reviews', [\App\Http\Controllers\Api\ReviewController::class, 'store']);
     Route::get('/reviews/{id}', [\App\Http\Controllers\Api\ReviewController::class, 'index'])->withoutMiddleware(['auth:sanctum']);
 });
+
+Route::get('/jobs', function() {
+    return \App\Models\Job::all();
+});
