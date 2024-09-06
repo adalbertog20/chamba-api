@@ -11,6 +11,7 @@ class Review extends Model
 
     protected $fillable = [
         'request_chamba_id',
+        'chamba_id',
         'client_id',
         'worker_id',
         'rating',

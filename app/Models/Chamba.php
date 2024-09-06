@@ -20,4 +20,8 @@ class Chamba extends Model
     {
         return $this->belongsTo(User::class, 'worker_id');
     }
+    public function reviews()
+    {
+        return $this->hasMany(Review::class);
+    }
 }
