@@ -29,7 +29,7 @@ class UpdateUserRequest extends FormRequest
             'phone_number' => ['required', 'string', 'min:10', 'max:12', Rule::unique('users')->ignore($userId)],
             'street' => ['required', 'string', 'max:255'],
             'postal_code' => ['required', 'string', 'min:5'],
-            'city' => ['required', 'string', 'max:255', 'in:La Paz, San Jose del Cabo']
+            'city' => ['required', 'string', 'max:255', 'in:La Paz,San Jose del Cabo']
         ];
     }
 }

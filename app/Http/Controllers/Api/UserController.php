@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class UserController extends Controller
 {
@@ -34,11 +35,35 @@ class UserController extends Controller
         ], 201);
     }
 
-    public function update(UpdateUserRequest $request)
+    public function update(Request $request)
     {
-        $user = $request->user();
+        $userId = Auth::id();
+        $user = User::find($userId);
 
-        $user->update($request->validated());
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'phone_number' => ['required', 'string', 'min:10', 'max:12', 'unique:users,phone_number,' . $userId],
+            'street' => ['required', 'string', 'max:255'],
+            'postal_code' => ['required', 'string', 'min:5'],
+            'city' => ['required', 'string', 'max:255', 'in:La Paz,San Jose del Cabo']
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Validation Failed',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $user->fill([
+            'name' => $request->name,
+            'phone_number' => $request->phone_number,
+            'street' => $request->street,
+            'postal_code' => $request->postal_code,
+            'city' => $request->city
+        ]);
+
+        $user->save();
 
         return response()->json([
             'message' => 'User Updated Successfully',

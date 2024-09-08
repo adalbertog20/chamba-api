@@ -26,10 +26,10 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::put('/updateProfile', [UserController::class, 'update']);
-    Route::put('/updatePassword', [UserController::class, 'updatePassword']);
-    Route::put('/updateJobs', [UserController::class, 'updateJobs']);
-    Route::get('/showJobs', [UserController::class, 'showJobs']);
+    Route::post('/user/updateProfile', [UserController::class, 'update']);
+    Route::put('/user/updatePassword', [UserController::class, 'updatePassword']);
+    Route::put('/user/updateJobs', [UserController::class, 'updateJobs']);
+    Route::get('/user/showJobs', [UserController::class, 'showJobs']);
 });
 
 Route::get('/chamba', [ChambaController::class, 'index'])->name('chamba.index');
