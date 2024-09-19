@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Str;
 
 class ChambaController extends Controller
 {
@@ -45,7 +46,14 @@ class ChambaController extends Controller
         if (Gate::allows('isWorker')) {
             $validatedData = $request->validated();
 
-            $chamba = Chamba::create($validatedData);
+
+            $chamba = Chamba::create([
+                'title' => $validatedData['title'],
+                'slug' => Str::slug($validatedData['title']),
+                'description' => $validatedData['description'],
+                'job_id' => $validatedData['job_id'],
+                'worker_id' => auth()->user()->id
+            ]);
 
             return response()->json([
                 "message" => "Chamba Created Successfully",
@@ -81,6 +89,14 @@ class ChambaController extends Controller
 
         return response()->json([
             "message" => "Chamba Deleted Successfully"
+        ]);
+    }
+
+    public function showName($id)
+    {
+        $chamba = Chamba::findOrFail($id);
+        return response()->json([
+            'name' => $chamba->title
         ]);
     }
 }

@@ -13,6 +13,7 @@ return new class extends Migration {
         Schema::create('chambas', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('slug')->unique();
             $table->longText('description');
             $table->float('rating')->default(0.0);
             $table->foreignId('job_id')->constrained('jobs');
