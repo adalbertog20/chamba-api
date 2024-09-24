@@ -12,7 +12,11 @@ class ReviewController extends Controller
 {
     public function index($id)
     {
-        $reviews = Review::where('chamba_id', $id)->get();
+        //$reviews = Review::where('chamba_id', $id)->get();
+        $reviews = DB::table('reviews')
+            ->join('users', 'reviews.client_id', '=', 'users.id')
+            ->select('reviews.*', 'users.name as client_name')
+            ->where('chamba_id', $id)->get();
 
         return response()->json([
             'reviews' => $reviews
