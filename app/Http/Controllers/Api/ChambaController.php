@@ -8,6 +8,7 @@ use App\Models\Chamba;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
@@ -24,6 +25,15 @@ class ChambaController extends Controller
 
         return response()->json([
             'chambas' => $chambas
+        ]);
+    }
+
+    public function myChambas()
+    {
+        $chambas = DB::table('chambas')->where('worker_id', Auth::user()->id)->get();
+
+        return response()->json([
+            'mychambas' => $chambas
         ]);
     }
 
