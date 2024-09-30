@@ -18,4 +18,8 @@ class Image extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function chamba()
+    {
+        return $this->belongsTo(Chamba::class);
+    }
 }

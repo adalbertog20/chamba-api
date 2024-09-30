@@ -33,7 +33,7 @@ class ChambaController extends Controller
         $chambas = DB::table('chambas')->where('worker_id', Auth::user()->id)->get();
 
         return response()->json([
-            'mychambas' => $chambas
+            'chambas' => $chambas
         ]);
     }
 
