@@ -24,9 +24,6 @@ class UpdateChambaRequest extends FormRequest
     {
         return [
             'title' => ['string', 'max:255'],
-            'description' => ['string'],
-            'job_id' => ['string', 'exists:jobs,id'],
-            'worker_id' => ['integer', 'exists:users,id'],
         ];
     }
 }

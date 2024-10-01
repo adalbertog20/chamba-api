@@ -13,6 +13,7 @@ class Chamba extends Model
         'description',
         'rating',
         'job_id',
+        'slug',
         'worker_id'
     ];
 

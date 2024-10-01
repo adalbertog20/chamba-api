@@ -3,9 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\Chamba\StoreChambaRequest;
-use App\Http\Requests\Chamba\UpdateChambaRequest;
 use App\Models\Chamba;
-
+use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -76,14 +75,30 @@ class ChambaController extends Controller
         }
     }
 
-    public function update(UpdateChambaRequest $request, $id, Chamba $chamba)
+    public function update(Request $request, $id)
     {
         $chamba = Chamba::where('id', $id)->firstOrFail();
 
-        $validatedData = $request->validated();
+        $validatedData = Validator::make($request->all(), [
+            'name' => ['string', 'max:255'],
+            'description' => ['string', 'max:255'],
+            'job_id' => ['string', 'exists:jobs,id']
+        ]);
 
-        $this->authorize('update', $chamba);
-        $chamba->update($validatedData);
+        if($validatedData->fails()) {
+            return response()->json([
+                "message" => "Validation Failed",
+                "errors" => $validatedData->errors()
+            ], 422);
+        }
+
+        $chamba->fill([
+            'title' => $request->title,
+            'description' => $request->description,
+            'job_id' => $request->job_id
+        ]);
+
+        $chamba->save();
 
         return response()->json([
             "message" => "Chamba Updated Successfully",
