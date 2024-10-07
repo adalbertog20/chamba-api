@@ -57,6 +57,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/images', [\App\Http\Controllers\Api\ImageController::class, 'store']);
 });
 
-Route::get('/jobs', function() {
+Route::get('/jobs', function () {
     return \App\Models\Job::all();
+});
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/dashboard', [\App\Http\Controllers\Api\DashboardController::class, 'index']);
 });
