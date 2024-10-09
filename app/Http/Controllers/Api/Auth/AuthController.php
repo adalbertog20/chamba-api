@@ -14,9 +14,11 @@ class AuthController extends Controller
 
         if (Auth::attempt($loginData)) {
             $user = Auth::user();
+            $isWorker = $user->isWorker();
             $token = $user->createToken('authToken')->plainTextToken;
             return response()->json([
                 'token' => $token,
+                'isWorker' => $isWorker
             ]);
         }
         return response()->json(['error', 'Unauthorized'], 401);

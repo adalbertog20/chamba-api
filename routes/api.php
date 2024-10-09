@@ -61,6 +61,8 @@ Route::get('/jobs', function () {
     return \App\Models\Job::all();
 });
 
+Route::get('/chambas/{slug}', [ChambaController::class, 'getChambasBySlug'])->name('chamba.getChambasBySlug');
+
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\Api\DashboardController::class, 'index']);
 });

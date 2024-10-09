@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Requests\Chamba\StoreChambaRequest;
 use App\Models\Chamba;
+use App\Models\Job;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -122,6 +123,15 @@ class ChambaController extends Controller
         $chamba = Chamba::findOrFail($id);
         return response()->json([
             'name' => $chamba->title
+        ]);
+    }
+
+    public function getChambasBySlug($slug)
+    {
+        $job = Job::where('slug', $slug)->firstOrFail();
+        $chamba = Chamba::with('job')->where('job_id', $job->id)->get();
+        return response()->json([
+            'chamba' => $chamba
         ]);
     }
 }
