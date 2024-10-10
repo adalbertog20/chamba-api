@@ -114,4 +114,14 @@ class UserController extends Controller
             'jobs' => $jobs
         ]);
     }
+    public function updateToWorker(Request $request)
+    {
+        $request->user()->fill([
+            'role' => '1',
+        ]);
+
+        $request->user()->save();
+
+        return response()->json(['message' => 'Tu rol a sido actualizado a trabajador.']);
+    }
 }

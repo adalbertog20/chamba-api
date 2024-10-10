@@ -30,6 +30,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/user/updatePassword', [UserController::class, 'updatePassword']);
     Route::post('/user/updateJobs', [UserController::class, 'updateJobs']);
     Route::get('/user/showJobs', [UserController::class, 'showJobs']);
+    Route::post('/user/updateToWorker', [UserController::class, 'updateToWorker']);
 });
 
 Route::get('/chamba', [ChambaController::class, 'index'])->name('chamba.index');
