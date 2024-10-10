@@ -86,7 +86,7 @@ class ChambaController extends Controller
             'job_id' => ['string', 'exists:jobs,id']
         ]);
 
-        if($validatedData->fails()) {
+        if ($validatedData->fails()) {
             return response()->json([
                 "message" => "Validation Failed",
                 "errors" => $validatedData->errors()
@@ -129,9 +129,14 @@ class ChambaController extends Controller
     public function getChambasBySlug($slug)
     {
         $job = Job::where('slug', $slug)->firstOrFail();
-        $chamba = Chamba::with('job')->where('job_id', $job->id)->get();
+        $chambas = DB::table('chambas')
+            ->join('jobs', 'chambas.job_id', '=', 'jobs.id')
+            ->join('users', 'chambas.worker_id', '=', 'users.id')
+            ->select('chambas.*', 'jobs.name as job_name', 'users.name as worker_name')
+            ->where('chambas.job_id', $job->id)
+            ->get();
         return response()->json([
-            'chamba' => $chamba
+            'chambas' => $chambas
         ]);
     }
 }
