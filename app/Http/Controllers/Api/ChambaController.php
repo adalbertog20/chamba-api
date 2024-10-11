@@ -30,7 +30,11 @@ class ChambaController extends Controller
 
     public function myChambas()
     {
-        $chambas = DB::table('chambas')->where('worker_id', Auth::user()->id)->get();
+        $chambas = DB::table('chambas')
+            ->join('images', 'chambas.image_id', '=', 'images.id')
+            ->where('worker_id', Auth::user()->id)
+            ->select('chambas.*', 'images.path')
+            ->get();
 
         return response()->json([
             'chambas' => $chambas
