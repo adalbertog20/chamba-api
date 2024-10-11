@@ -56,13 +56,13 @@ class ChambaController extends Controller
         if (Gate::allows('isWorker')) {
             $validatedData = $request->validated();
 
-
             $chamba = Chamba::create([
                 'title' => $validatedData['title'],
                 'slug' => Str::slug($validatedData['title']),
                 'description' => $validatedData['description'],
                 'job_id' => $validatedData['job_id'],
-                'worker_id' => auth()->user()->id
+                'worker_id' => auth()->user()->id,
+                'image_id' => $validatedData['image_id']
             ]);
 
             return response()->json([

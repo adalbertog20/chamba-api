@@ -25,6 +25,7 @@ class StoreChambaRequest extends FormRequest
             'title' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
             'job_id' => ['required', 'string', 'exists:jobs,id'],
+            'image_id' => ['required', 'string', 'exists:images,id']
         ];
     }
 }

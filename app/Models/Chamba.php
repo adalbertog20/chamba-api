@@ -15,7 +15,8 @@ class Chamba extends Model
         'rating',
         'job_id',
         'slug',
-        'worker_id'
+        'worker_id',
+        'image_id'
     ];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
