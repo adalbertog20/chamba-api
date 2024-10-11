@@ -12,6 +12,7 @@ class Image extends Model
         'path',
         'user_id',
         'alt',
+        'path'
     ];
 
     public function user()

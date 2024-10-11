@@ -11,7 +11,6 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-
     const WORKER = "1";
     const CLIENT = "0";
 
@@ -74,7 +73,6 @@ class User extends Authenticatable
     {
         return $this->hasMany(Chamba::class);
     }
-
     public function images()
     {
         return $this->hasMany(Image::class);

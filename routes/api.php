@@ -55,6 +55,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/images', [\App\Http\Controllers\Api\ImageController::class, 'index']);
     Route::post('/images', [\App\Http\Controllers\Api\ImageController::class, 'store']);
 });
 
