@@ -47,7 +47,7 @@ class ChambaController extends Controller
         $chamba = DB::table('chambas')
             ->join('jobs', 'chambas.job_id', '=', 'jobs.id')
             ->join('users', 'chambas.worker_id', '=', 'users.id')
-            ->join('images', 'chambas.image_id', '=', 'images.id')
+            ->leftJoin('images', 'chambas.image_id', '=', 'images.id')
             ->select('chambas.*', 'jobs.name as job_name', 'users.name as worker_name', 'images.path')
             ->where('chambas.slug', $slug)
             ->first();
