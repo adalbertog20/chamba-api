@@ -20,7 +20,8 @@ class ChambaController extends Controller
         $chambas = DB::table('chambas as c')
             ->join('users as worker', 'c.worker_id', '=', 'worker.id')
             ->join('jobs as job', 'c.job_id', '=', 'job.id')
-            ->select('c.*', 'worker.name as worker_name', 'job.name as job_name')
+            ->leftJoin('images as image', 'c.image_id', '=', 'image.id')
+            ->select('c.*', 'worker.name as worker_name', 'job.name as job_name', 'image.path')
             ->get();
 
         return response()->json([
@@ -46,7 +47,8 @@ class ChambaController extends Controller
         $chamba = DB::table('chambas')
             ->join('jobs', 'chambas.job_id', '=', 'jobs.id')
             ->join('users', 'chambas.worker_id', '=', 'users.id')
-            ->select('chambas.*', 'jobs.name as job_name', 'users.name as worker_name')
+            ->join('images', 'chambas.image_id', '=', 'images.id')
+            ->select('chambas.*', 'jobs.name as job_name', 'users.name as worker_name', 'images.path')
             ->where('chambas.slug', $slug)
             ->first();
 
@@ -136,7 +138,8 @@ class ChambaController extends Controller
         $chambas = DB::table('chambas')
             ->join('jobs', 'chambas.job_id', '=', 'jobs.id')
             ->join('users', 'chambas.worker_id', '=', 'users.id')
-            ->select('chambas.*', 'jobs.name as job_name', 'users.name as worker_name')
+            ->leftJoin('images as image', 'c.image_id', '=', 'image.id')
+            ->select('chambas.*', 'jobs.name as job_name', 'users.name as worker_name' , 'images.path')
             ->where('chambas.job_id', $job->id)
             ->get();
         return response()->json([
