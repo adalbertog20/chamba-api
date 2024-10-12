@@ -5,18 +5,35 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\RequestChamba;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class RequestChambaController extends Controller
 {
     public function index()
     {
-        $userId = auth()->user()->id;
+        $userId = Auth::id();
 
-        $requests = RequestChamba::all()->where('worker_id', $userId);
+        if (Auth::user()->isWorker()) {
+            $requests = DB::table('request_chambas as rc')
+                ->join('users as client', 'rc.client_id', '=', 'client.id')
+                ->join('users as worker', 'rc.worker_id', '=', 'worker.id')
+                ->join('chambas', 'rc.chamba_id', '=', 'chambas.id')
+                ->where('rc.worker_id', $userId)
+                ->select('rc.*', 'client.name as client_name', 'worker.name as worker_name', 'chambas.title as chamba_name')
+                ->get();
+        } else {
+            $requests = DB::table('request_chambas as rc')
+                ->join('users as client', 'rc.client_id', '=', 'client.id')
+                ->join('users as worker', 'rc.worker_id', '=', 'worker.id')
+                ->join('chambas', 'rc.chamba_id', '=', 'chambas.id')
+                ->where('rc.client_id', $userId)
+                ->select('rc.*', 'client.name as client_name', 'worker.name as worker_name', 'chambas.title as chamba_name')
+                ->get();
+        }
 
         return response()->json([
-            'message' => 'All Requests',
             'requests' => $requests
         ]);
     }

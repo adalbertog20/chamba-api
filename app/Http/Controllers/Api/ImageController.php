@@ -39,4 +39,17 @@ class ImageController extends Controller
             'message' => 'Image uploaded',
         ]);
     }
+    public function destroy($id) {
+        $image = Image::find($id);
+        if ($image->user_id == Auth::id()) {
+            $image->delete();
+            return response()->json([
+                'message' => 'Image deleted'
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Unauthorized'
+            ], 401);
+        }
+    }
 }
