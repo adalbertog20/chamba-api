@@ -23,16 +23,19 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Duver',
             'email' => 'duver@gmail.com',
+            'slug' => 'duver',
             'password' => Hash::make('duver')
         ]);
         DB::table('users')->insert([
             'name' => 'Jonathan',
             'email' => 'jona@gmail.com',
+            'slug' => 'jonathan',
             'password' => Hash::make('jona')
         ]);
         DB::table('users')->insert([
             'name' => 'Adalberto',
             'email' => 'adal@gmail.com',
+            'slug' => 'adalberto',
             'password' => Hash::make('adalberto')
         ]);
         DB::table('users')->insert([

@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -18,7 +19,12 @@ class UserController extends Controller
         $validatedData = $request->validated();
         $validatedData['password'] = Hash::make($request->password);
 
-        $user = User::create($validatedData);
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'email' => $validatedData['email'],
+            'slug' => Str::slug($validatedData['name']),
+            'password' => $validatedData['password'],
+        ]);
 
         if (Auth::attempt($request->only('email', 'password'))) {
             $token = Auth::user()->createToken('authToken')->plainTextToken;
@@ -43,6 +49,7 @@ class UserController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => ['required', 'string', 'max:255'],
             'phone_number' => ['required', 'string', 'min:10', 'max:12', 'unique:users,phone_number,' . $userId],
+            'about_me' => ['required', 'string'],
             'street' => ['required', 'string', 'max:255'],
             'postal_code' => ['required', 'string', 'min:5'],
             'city' => ['required', 'string', 'max:255', 'in:La Paz,San Jose del Cabo']
@@ -58,6 +65,7 @@ class UserController extends Controller
         $user->fill([
             'name' => $request->name,
             'phone_number' => $request->phone_number,
+            'about_me' => $request->about_me,
             'street' => $request->street,
             'postal_code' => $request->postal_code,
             'city' => $request->city
