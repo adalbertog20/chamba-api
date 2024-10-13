@@ -21,7 +21,7 @@ class ChambaController extends Controller
             ->join('users as worker', 'c.worker_id', '=', 'worker.id')
             ->join('jobs as job', 'c.job_id', '=', 'job.id')
             ->leftJoin('images as image', 'c.image_id', '=', 'image.id')
-            ->select('c.*', 'worker.name as worker_name', 'job.name as job_name', 'image.path')
+            ->select('c.*', 'worker.name as worker_name', 'job.name as job_name', 'image.path', 'worker.slug as worker_slug')
             ->get();
 
         return response()->json([

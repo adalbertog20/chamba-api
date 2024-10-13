@@ -122,6 +122,7 @@ class UserController extends Controller
             'jobs' => $jobs
         ]);
     }
+
     public function updateToWorker(Request $request)
     {
         $request->user()->fill([
@@ -131,5 +132,22 @@ class UserController extends Controller
         $request->user()->save();
 
         return response()->json(['message' => 'Tu rol a sido actualizado a trabajador.']);
+    }
+
+    public function getUserInfoSlug($slug)
+    {
+        $user = User::where('slug', $slug)->firstOrFail();
+        return response()->json([
+            'user' => $user
+        ]);
+    }
+
+    public function getJobsBySlug($slug)
+    {
+        $user = User::where('slug', $slug)->firstOrFail();
+        $jobs = $user->jobs;
+        return response()->json([
+            'jobs' => $jobs
+        ]);
     }
 }
