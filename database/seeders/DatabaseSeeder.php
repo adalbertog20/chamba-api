@@ -41,12 +41,14 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'name' => 'Worker1',
             'email' => 'worker1@gmail.com',
+            'slug' => 'worker1',
             'password' => Hash::make('worker1'),
             'role' => '1'
         ]);
         DB::table('users')->insert([
             'name' => 'Worker2',
             'email' => 'worker2@gmail.com',
+            'slug' => 'worker2',
             'password' => Hash::make('worker2'),
             'role' => '1'
         ]);
