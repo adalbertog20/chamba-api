@@ -21,7 +21,7 @@ class RequestChambaController extends Controller
                 ->join('users as worker', 'rc.worker_id', '=', 'worker.id')
                 ->join('chambas', 'rc.chamba_id', '=', 'chambas.id')
                 ->where('rc.worker_id', $userId)
-                ->select('rc.*', 'client.name as client_name', 'worker.name as worker_name', 'chambas.title as chamba_name')
+                ->select('rc.*', 'client.name as client_name', 'worker.name as worker_name', 'chambas.title as chamba_name', 'chambas.slug as chamba_slug')
                 ->get();
         } else {
             $requests = DB::table('request_chambas as rc')
@@ -29,7 +29,7 @@ class RequestChambaController extends Controller
                 ->join('users as worker', 'rc.worker_id', '=', 'worker.id')
                 ->join('chambas', 'rc.chamba_id', '=', 'chambas.id')
                 ->where('rc.client_id', $userId)
-                ->select('rc.*', 'client.name as client_name', 'worker.name as worker_name', 'chambas.title as chamba_name')
+                ->select('rc.*', 'client.name as client_name', 'worker.name as worker_name', 'chambas.title as chamba_name', 'chambas.slug as chamba_slug')
                 ->get();
         }
 

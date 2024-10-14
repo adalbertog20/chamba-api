@@ -32,7 +32,7 @@ class ChambaController extends Controller
     public function myChambas()
     {
         $chambas = DB::table('chambas')
-            ->join('images', 'chambas.image_id', '=', 'images.id')
+            ->leftJoin('images', 'chambas.image_id', '=', 'images.id')
             ->where('worker_id', Auth::user()->id)
             ->select('chambas.*', 'images.path')
             ->get();

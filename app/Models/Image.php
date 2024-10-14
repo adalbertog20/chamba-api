@@ -9,8 +9,8 @@ class Image extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'path',
         'user_id',
+        'image',
         'alt',
         'path'
     ];
