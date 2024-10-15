@@ -50,6 +50,10 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/notifications', [\App\Http\Controllers\Api\NotificationsController::class, 'index']);
+});
+
+Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/reviews', [\App\Http\Controllers\Api\ReviewController::class, 'store']);
     Route::get('/reviews/{id}', [\App\Http\Controllers\Api\ReviewController::class, 'index'])->withoutMiddleware(['auth:sanctum']);
 });

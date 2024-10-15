@@ -14,7 +14,7 @@ class User extends Authenticatable
     const WORKER = "1";
     const CLIENT = "0";
 
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasFactory, Notifiable, HasApiTokens, Notifiable;
 
     protected $fillable = [
         'name',

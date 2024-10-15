@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Chamba;
 use App\Models\RequestChamba;
+use App\Models\User;
+use App\Notifications\RequestChambaStatusUpdated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -70,6 +73,12 @@ class RequestChambaController extends Controller
         $requestChamba->update([
             'status' => $validatedData['status']
         ]);
+
+        $client = User::where('id', $requestChamba->client_id)->firstOrFail();
+        $worker = User::where('id', $requestChamba->worker_id)->firstOrFail();
+        $chamba = Chamba::where('id', $requestChamba->chamba_id)->firstOrFail();
+
+        $client->notify(new RequestChambaStatusUpdated($requestChamba, $client, $worker, $chamba->title));
 
         return response()->json([
             'message' => 'Request Status Updated',
