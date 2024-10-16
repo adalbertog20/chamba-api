@@ -69,10 +69,15 @@ Route::get('/jobs', function () {
 });
 
 Route::get('/getUserInfoSlug/{slug}', [UserController::class, 'getUserInfoSlug'])->name('user.getUserInfoSlug');
-Route::get('/getJobsBySlug/{slug}', [UserController::class, 'getJobsBySlug'])->name('user.getUserInfoSlug');
+Route::get('/getJobsBySlug/{slug}', [UserController::class, 'getJobsBySlug'])->name('user.getJobsBySlug');
 
 Route::get('/chambas/{slug}', [ChambaController::class, 'getChambasBySlug'])->name('chamba.getChambasBySlug');
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\Api\DashboardController::class, 'index']);
 });
+
+Route::post('/room', [\App\Http\Controllers\Api\RoomController::class, 'store'])->middleware('auth:sanctum');
+
+Route::get('/messages/{id}', [\App\Http\Controllers\Api\MessageController::class, 'fetchMessage']);
+Route::post('/messages/{id}', [\App\Http\Controllers\Api\MessageController::class, 'sendMessage']);
