@@ -76,3 +76,8 @@ Route::get('/chambas/{slug}', [ChambaController::class, 'getChambasBySlug'])->na
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\Api\DashboardController::class, 'index']);
 });
+
+Route::post('/room', [\App\Http\Controllers\Api\RoomController::class, 'store'])->middleware('auth:sanctum');
+
+Route::get('/messages/{id}', [\App\Http\Controllers\Api\MessageController::class, 'fetchMessage']);
+Route::post('/messages/{id}', [\App\Http\Controllers\Api\MessageController::class, 'sendMessage']);
