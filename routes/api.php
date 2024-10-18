@@ -69,7 +69,7 @@ Route::get('/jobs', function () {
 });
 
 Route::get('/getUserInfoSlug/{slug}', [UserController::class, 'getUserInfoSlug'])->name('user.getUserInfoSlug');
-Route::get('/getJobsBySlug/{slug}', [UserController::class, 'getJobsBySlug'])->name('user.getJobsBySlug');
+Route::get('/getJobsBySlug/{slug}', [UserController::class, 'getJobsBySlug'])->name('user.getUserInfoSlug');
 
 Route::get('/chambas/{slug}', [ChambaController::class, 'getChambasBySlug'])->name('chamba.getChambasBySlug');
 

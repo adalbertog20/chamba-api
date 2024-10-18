@@ -5,7 +5,6 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -67,21 +66,16 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Job::class, 'job_user');
     }
-    public function reviews(): HasMany
+    public function reviews()
     {
         return $this->hasMany(Review::class, 'worker_id');
     }
-    public function chambas(): HasMany
+    public function chambas()
     {
         return $this->hasMany(Chamba::class);
     }
-    public function images(): HasMany
+    public function images()
     {
         return $this->hasMany(Image::class);
-    }
-
-    public function rooms(): HasMany
-    {
-        return $this->hasMany(Room::class);
     }
 }
