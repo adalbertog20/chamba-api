@@ -144,14 +144,14 @@ class ChambaController extends Controller
 
     public function getChambasBySlug($slug)
     {
-        $job = Job::where('slug', $slug)->firstOrFail();
-        $chambas = DB::table('chambas')
-            ->join('jobs', 'chambas.job_id', '=', 'jobs.id')
-            ->join('users', 'chambas.worker_id', '=', 'users.id')
+        $chambas = DB::table('chambas as c')
+            ->join('users as worker', 'c.worker_id', '=', 'worker.id')
+            ->join('jobs as job', 'c.job_id', '=', 'job.id')
             ->leftJoin('images as image', 'c.image_id', '=', 'image.id')
-            ->select('chambas.*', 'jobs.name as job_name', 'users.name as worker_name' , 'images.path')
-            ->where('chambas.job_id', $job->id)
+            ->select('c.*', 'worker.name as worker_name', 'job.name as job_name', 'image.path', 'worker.slug as worker_slug')
+            ->where('job.slug', $slug)
             ->get();
+
         return response()->json([
             'chambas' => $chambas
         ]);
