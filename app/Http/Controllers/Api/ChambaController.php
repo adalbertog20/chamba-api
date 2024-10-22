@@ -24,8 +24,18 @@ class ChambaController extends Controller
             ->select('c.*', 'worker.name as worker_name', 'job.name as job_name', 'image.path', 'worker.slug as worker_slug')
             ->get();
 
+        $mostRated = DB::table('chambas as c')
+            ->join('users as worker', 'c.worker_id', '=', 'worker.id')
+            ->join('jobs as job', 'c.job_id', '=', 'job.id')
+            ->leftJoin('images as image', 'c.image_id', '=', 'image.id')
+            ->select('c.*', 'worker.name as worker_name', 'job.name as job_name', 'image.path', 'worker.slug as worker_slug')
+            ->orderBy('c.rating', 'desc')
+            ->limit(8)
+            ->get();
+
         return response()->json([
-            'chambas' => $chambas
+            'chambas' => $chambas,
+            'mostRated' => $mostRated
         ]);
     }
 

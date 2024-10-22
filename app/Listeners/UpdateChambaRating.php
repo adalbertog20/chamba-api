@@ -2,11 +2,12 @@
 
 namespace App\Listeners;
 
+use App\Events\ReviewStored;
 use App\Models\Chamba;
 
 class UpdateChambaRating
 {
-    public function handle(object $event): void
+    public function handle(ReviewStored $event): void
     {
         $review = $event->review;
         $chamba = Chamba::find($review->chamba_id);
