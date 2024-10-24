@@ -51,6 +51,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/notifications', [\App\Http\Controllers\Api\NotificationsController::class, 'index']);
+    Route::post('/notifications/{id}', [\App\Http\Controllers\Api\NotificationsController::class, 'markAsRead']);
+    Route::post('/notifications', [\App\Http\Controllers\Api\NotificationsController::class, 'markAllAsRead']);
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
@@ -69,7 +71,7 @@ Route::get('/jobs', function () {
 });
 
 Route::get('/getUserInfoSlug/{slug}', [UserController::class, 'getUserInfoSlug'])->name('user.getUserInfoSlug');
-Route::get('/getJobsBySlug/{slug}', [UserController::class, 'getJobsBySlug'])->name('user.getUserInfoSlug');
+Route::get('/getJobsBySlug/{slug}', [UserController::class, 'getJobsBySlug'])->name('user.getJobsBySlug');
 
 Route::get('/chambas/{slug}', [ChambaController::class, 'getChambasBySlug'])->name('chamba.getChambasBySlug');
 
