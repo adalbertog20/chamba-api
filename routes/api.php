@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\Auth\AuthController;
 use App\Http\Controllers\Api\ChambaController;
+use App\Http\Controllers\Api\SearchController;
 use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
 Route::get('/chamba', [ChambaController::class, 'index'])->name('chamba.index');
+Route::get('/search', [SearchController::class, 'search']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/chamba', [ChambaController::class, 'store'])->name('chamba.store');

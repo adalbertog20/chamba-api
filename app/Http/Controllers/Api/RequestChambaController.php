@@ -44,8 +44,8 @@ class RequestChambaController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'worker_id' => ['required', 'integer', 'exists:users,id'],
-            'chamba_id' => ['required', 'integer', 'exists:chambas,id'],
+            'worker_id' => ['required', 'string', 'exists:users,id'],
+            'chamba_id' => ['required', 'string', 'exists:chambas,id'],
             'message' => ['required', 'string'],
         ]);
 
