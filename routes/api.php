@@ -78,3 +78,9 @@ Route::get('/chambas/{slug}', [ChambaController::class, 'getChambasBySlug'])->na
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/dashboard', [\App\Http\Controllers\Api\DashboardController::class, 'index']);
 });
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/user/followers/{id}', [\App\Http\Controllers\Api\FollowController::class, 'getFollowers']);
+    Route::post('/follow/{id}', [\App\Http\Controllers\Api\FollowController::class, 'follow']);
+    Route::post('/unfollow/{id}', [\App\Http\Controllers\Api\FollowController::class, 'unfollow']);
+});

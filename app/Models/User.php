@@ -50,13 +50,14 @@ class User extends Authenticatable
 
     public function role(): string
     {
-        return (string) $this->role;
+        return (string)$this->role;
     }
 
     public function isClient(): bool
     {
         return $this->role() === self::CLIENT;
     }
+
     public function isWorker(): bool
     {
         return $this->role() === self::WORKER;
@@ -66,16 +67,29 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Job::class, 'job_user');
     }
+
     public function reviews()
     {
         return $this->hasMany(Review::class, 'worker_id');
     }
+
     public function chambas()
     {
         return $this->hasMany(Chamba::class);
     }
+
     public function images()
     {
         return $this->hasMany(Image::class);
+    }
+
+    public function following()
+    {
+        return $this->belongsToMany(User::class, 'user_follows', 'follower_id', 'followed_id');
+    }
+
+    public function followers()
+    {
+        return $this->belongsToMany(User::class, 'user_follows', 'followed_id', 'follower_id');
     }
 }
