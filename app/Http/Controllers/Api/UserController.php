@@ -8,6 +8,7 @@ use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
@@ -149,5 +150,19 @@ class UserController extends Controller
         return response()->json([
             'jobs' => $jobs
         ]);
+    }
+
+    public function getWorkerChambas($slug)
+    {
+        $user = User::where('slug', $slug)->firstOrFail();
+        $chambas = DB::table('chambas as c')
+            ->join('users as worker', 'c.worker_id', '=', 'worker.id')
+            ->join('jobs as job', 'c.job_id', '=', 'job.id')
+            ->leftJoin('images as image', 'c.image_id', '=', 'image.id')
+            ->select('c.*', 'worker.name as worker_name', 'job.name as job_name', 'image.path', 'worker.slug as worker_slug')
+            ->where('worker_id', $user->id)
+            ->get();
+
+        return response()->json($chambas);
     }
 }
