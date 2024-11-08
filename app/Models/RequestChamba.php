@@ -24,12 +24,19 @@ class RequestChamba extends Model
     {
         return $this->belongsTo(User::class, 'client_id');
     }
+
     public function worker(): BelongsTo
     {
         return $this->belongsTo(User::class, 'worker_id');
     }
+
     public function chamba(): BelongsTo
     {
         return $this->belongsTo(Chamba::class);
+    }
+
+    public function chat()
+    {
+        return $this->hasOne(Chat::class);
     }
 }

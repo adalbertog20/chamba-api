@@ -6,17 +6,6 @@ use App\Http\Controllers\Api\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
-
 Route::post('/register', [UserController::class, 'store']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
@@ -31,8 +20,13 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/user/updateJobs', [UserController::class, 'updateJobs']);
     Route::get('/user/showJobs', [UserController::class, 'showJobs']);
     Route::post('/user/updateToWorker', [UserController::class, 'updateToWorker']);
-
     Route::get('/user/{slug}/getWorkerChambas', [UserController::class, 'getWorkerChambas']);
+    Route::get('/user/chats', [\App\Http\Controllers\Api\ChatController::class, 'index']);
+});
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/chat/{id}/messages', [\App\Http\Controllers\Api\MessageController::class, 'index']);
+    Route::post('/chat/{id}/messages', [\App\Http\Controllers\Api\MessageController::class, 'store']);
 });
 
 Route::get('/chamba', [ChambaController::class, 'index'])->name('chamba.index');

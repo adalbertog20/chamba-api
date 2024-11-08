@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Chamba;
+use App\Models\Chat;
 use App\Models\RequestChamba;
 use App\Models\User;
 use App\Notifications\RequestChambaStatusUpdated;
@@ -77,6 +78,14 @@ class RequestChambaController extends Controller
         $client = User::where('id', $requestChamba->client_id)->firstOrFail();
         $worker = User::where('id', $requestChamba->worker_id)->firstOrFail();
         $chamba = Chamba::where('id', $requestChamba->chamba_id)->firstOrFail();
+
+        if ($validatedData['status'] === 'accepted') {
+            Chat::firstOrCreate([
+                'client_id' => $client->id,
+                'worker_id' => $worker->id,
+                'request_chamba_id' => $requestChamba->id
+            ]);
+        }
 
         $client->notify(new RequestChambaStatusUpdated($requestChamba, $client, $worker, $chamba->title));
 

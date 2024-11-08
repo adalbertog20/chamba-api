@@ -92,4 +92,11 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(User::class, 'user_follows', 'followed_id', 'follower_id');
     }
+
+    public function chats()
+    {
+        return $this->hasMany(Chat::class, 'client_id')
+            ->orWhere('worker_id', $this->id)
+            ->with(['client:id,name', 'worker:id,name', 'requestChamba.chamba:id,title,slug']);
+    }
 }
