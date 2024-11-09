@@ -42,6 +42,25 @@ class RequestChambaController extends Controller
         ]);
     }
 
+    public function show($id)
+    {
+        $request = DB::table('request_chambas as rc')
+            ->join('users as client', 'rc.client_id', '=', 'client.id')
+            ->join('users as worker', 'rc.worker_id', '=', 'worker.id')
+            ->join('chambas', 'rc.chamba_id', '=', 'chambas.id')
+            ->where('rc.id', $id)
+            ->select('rc.*', 'client.name as client_name', 'worker.name as worker_name', 'chambas.title as chamba_name', 'chambas.slug as chamba_slug')
+            ->first();
+
+        if (!$request) {
+            return response()->json([
+                'message' => 'Request not found'
+            ], 404);
+        }
+
+        return response()->json($request);
+    }
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([

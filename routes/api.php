@@ -42,6 +42,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/requests', [\App\Http\Controllers\Api\RequestChambaController::class, 'index']);
     Route::post('/requests', [\App\Http\Controllers\Api\RequestChambaController::class, 'store']);
+    Route::get('/requests/{id}', [\App\Http\Controllers\Api\RequestChambaController::class, 'show']);
     Route::put('/requests/{id}', [\App\Http\Controllers\Api\RequestChambaController::class, 'updateStatus']);
 });
 

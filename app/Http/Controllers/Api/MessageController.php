@@ -22,12 +22,6 @@ class MessageController extends Controller
 
         $messages = $chat->messages;
 
-        if ($messages->isEmpty()) {
-            return response()->json([
-                'message' => 'No messages found'
-            ]);
-        }
-
         return response()->json($messages);
     }
 
