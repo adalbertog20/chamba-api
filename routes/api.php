@@ -25,8 +25,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 });
 
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('/chat/{id}/messages', [\App\Http\Controllers\Api\MessageController::class, 'index']);
-    Route::post('/chat/{id}/messages', [\App\Http\Controllers\Api\MessageController::class, 'store']);
+    Route::get('/chat/{uuid}/messages', [\App\Http\Controllers\Api\MessageController::class, 'index']);
+    Route::post('/chat/{uuid}/messages', [\App\Http\Controllers\Api\MessageController::class, 'store']);
 });
 
 Route::get('/chamba', [ChambaController::class, 'index'])->name('chamba.index');

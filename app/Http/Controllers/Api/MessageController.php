@@ -10,9 +10,16 @@ use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
 {
-    public function index($id)
+    public function index($uuid)
     {
-        $chat = Chat::findOrFail($id);
+        $chat = Chat::findOrFail($uuid);
+
+        if (Auth::id() !== $chat->client_id && Auth::id() !== $chat->worker_id) {
+            return response()->json([
+                'message' => 'Forbidden'
+            ], 403);
+        }
+
         $messages = $chat->messages;
 
         if ($messages->isEmpty()) {
@@ -24,8 +31,16 @@ class MessageController extends Controller
         return response()->json($messages);
     }
 
-    public function store($id)
+    public function store($uuid)
     {
+        $chat = Chat::findOrFail($uuid);
+
+        if (Auth::id() !== $chat->client_id && Auth::id() !== $chat->worker_id) {
+            return response()->json([
+                'message' => 'Forbidden'
+            ], 403);
+        }
+
         $validatedData = request()->validate([
             'body' => ['required', 'string'],
         ]);
@@ -33,7 +48,7 @@ class MessageController extends Controller
         $message = \App\Models\Message::create([
             'body' => $validatedData['body'],
             'user_id' => Auth::id(),
-            'chat_id' => $id,
+            'chat_id' => $uuid,
         ]);
 
         return response()->json([
