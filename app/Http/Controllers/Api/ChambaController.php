@@ -30,7 +30,7 @@ class ChambaController extends Controller
             ->leftJoin('images as image', 'c.image_id', '=', 'image.id')
             ->select('c.*', 'worker.name as worker_name', 'job.name as job_name', 'image.path', 'worker.slug as worker_slug')
             ->orderBy('c.rating', 'desc')
-            ->limit(8)
+            ->limit(4)
             ->get();
 
         return response()->json([
@@ -155,5 +155,31 @@ class ChambaController extends Controller
         return response()->json([
             'chambas' => $chambas
         ]);
+    }
+
+    public function GetUserFollowingChambas()
+    {
+        if (!Auth::check()) {
+            return response()->json([
+                'error' => 'Unauthorized'
+            ], 401);
+        }
+
+        if (Auth::user()->following->isEmpty()) {
+            return response()->json([
+                'message' => 'No Chambas Found, Follow Some Workers'
+            ]);
+        }
+
+        $chambas = DB::table('chambas as c')
+            ->join('user_follows as uf', 'c.worker_id', '=', 'uf.followed_id')
+            ->join('users as worker', 'c.worker_id', '=', 'worker.id')
+            ->join('jobs as job', 'c.job_id', '=', 'job.id')
+            ->leftJoin('images as image', 'c.image_id', '=', 'image.id')
+            ->select('c.*', 'worker.name as worker_name', 'job.name as job_name', 'image.path', 'worker.slug as worker_slug')
+            ->where('uf.follower_id', Auth::id())
+            ->get();
+
+        return response()->json($chambas);
     }
 }

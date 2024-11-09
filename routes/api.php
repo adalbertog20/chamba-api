@@ -80,3 +80,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/follow/{id}', [\App\Http\Controllers\Api\FollowController::class, 'follow']);
     Route::post('/unfollow/{id}', [\App\Http\Controllers\Api\FollowController::class, 'unfollow']);
 });
+
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::get('/user/getUserFollowingChambas', [ChambaController::class, 'getUserFollowingChambas']);
+});
