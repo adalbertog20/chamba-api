@@ -12,7 +12,7 @@ class MessageController extends Controller
 {
     public function index($uuid)
     {
-        $chat = Chat::findOrFail($uuid);
+        $chat = Chat::all()->where('uuid', $uuid)->firstOrFail();
 
         if (Auth::id() !== $chat->client_id && Auth::id() !== $chat->worker_id) {
             return response()->json([
