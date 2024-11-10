@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Observers\RequestChambaObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+#[ObservedBy([RequestChambaObserver::class])]
 class RequestChamba extends Model
 {
     use HasFactory;
