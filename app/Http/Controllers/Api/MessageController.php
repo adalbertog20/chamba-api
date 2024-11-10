@@ -25,9 +25,13 @@ class MessageController extends Controller
         return response()->json($messages);
     }
 
-    public function store($uuid)
+    public function store(Request $request, $uuid)
     {
-        $chat = Chat::findOrFail($uuid);
+        $request->validate([
+            'body' => 'required|string'
+        ]);
+
+        $chat = Chat::where('uuid', $uuid)->firstOrFail();
 
         if (Auth::id() !== $chat->client_id && Auth::id() !== $chat->worker_id) {
             return response()->json([
@@ -35,18 +39,12 @@ class MessageController extends Controller
             ], 403);
         }
 
-        $validatedData = request()->validate([
-            'body' => ['required', 'string'],
-        ]);
+        $message = new \App\Models\Message();
+        $message->body = $request->body;
+        $message->user_id = Auth::id();
+        $message->chat_id = $chat->id;
+        $message->save();
 
-        $message = \App\Models\Message::create([
-            'body' => $validatedData['body'],
-            'user_id' => Auth::id(),
-            'chat_id' => $uuid,
-        ]);
-
-        return response()->json([
-            'message' => 'Message sent',
-        ]);
+        return response()->json($message);
     }
 }
