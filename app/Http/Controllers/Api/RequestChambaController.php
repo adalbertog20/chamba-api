@@ -48,8 +48,9 @@ class RequestChambaController extends Controller
             ->join('users as client', 'rc.client_id', '=', 'client.id')
             ->join('users as worker', 'rc.worker_id', '=', 'worker.id')
             ->join('chambas', 'rc.chamba_id', '=', 'chambas.id')
+            ->join('chats', 'rc.id', '=', 'chats.request_chamba_id')
             ->where('rc.id', $id)
-            ->select('rc.*', 'client.name as client_name', 'worker.name as worker_name', 'chambas.title as chamba_name', 'chambas.slug as chamba_slug')
+            ->select('rc.*', 'client.name as client_name', 'worker.name as worker_name', 'chambas.title as chamba_name', 'chambas.slug as chamba_slug', 'chats.uuid as chat_uuid')
             ->first();
 
         if (!$request) {
@@ -110,6 +111,36 @@ class RequestChambaController extends Controller
 
         return response()->json([
             'message' => 'Request Status Updated',
+            'request' => $requestChamba
+        ]);
+    }
+
+    public function startChamba($id)
+    {
+        $requestChamba = RequestChamba::find($id);
+
+        $requestChamba->update([
+            'status' => 'started',
+            'start_date' => now()
+        ]);
+
+        return response()->json([
+            'message' => 'Chamba Started',
+            'request' => $requestChamba
+        ]);
+    }
+
+    public function endChamba($id)
+    {
+        $requestChamba = RequestChamba::find($id);
+
+        $requestChamba->update([
+            'status' => 'done',
+            'end_date' => now()
+        ]);
+
+        return response()->json([
+            'message' => 'Chamba Ended',
             'request' => $requestChamba
         ]);
     }
