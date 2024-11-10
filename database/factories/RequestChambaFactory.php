@@ -19,8 +19,6 @@ class RequestChambaFactory extends Factory
     public function definition(): array
     {
         return [
-            'client_id' => User::factory(['role' => 0]),
-            'worker_id' => User::factory(['role' => 1]),
             'chamba_id' => Chamba::factory(),
             "message" => $this->faker->sentence(),
             'status' => 'pending',
