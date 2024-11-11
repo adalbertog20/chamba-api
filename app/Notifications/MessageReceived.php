@@ -38,7 +38,7 @@ class MessageReceived extends Notification
     {
         return [
             'title' => 'Nuevo mensaje de ' . $this->message->user->name,
-            'message' => $this->message->body,
+            'msg' => $this->message->body,
         ];
     }
 }
