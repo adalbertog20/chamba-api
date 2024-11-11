@@ -88,3 +88,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/user/getUserFollowingChambas', [ChambaController::class, 'getUserFollowingChambas']);
 });
+
+Route::controller(\App\Http\Controllers\Api\WorkerController::class)->group(function () {
+    Route::get('/workers', 'index');
+});
