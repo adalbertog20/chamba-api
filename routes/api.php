@@ -29,7 +29,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/chat/{uuid}/messages', [\App\Http\Controllers\Api\MessageController::class, 'store']);
 });
 
-Route::get('/chamba', [ChambaController::class, 'index'])->name('chamba.index');
+Route::get('/chamba', [ChambaController::class, 'index']);
+Route::get('/mostRatedChambas', [ChambaController::class, 'mostRatedChambas']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/chamba', [ChambaController::class, 'store'])->name('chamba.store');
