@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use App\Models\RequestChamba;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
@@ -17,41 +16,43 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             JobSeeder::class,
-            ChambaSeeder::class,
-            RequestChambaSeeder::class,
         ]);
+        $users = json_decode(File::get(database_path('json/users.json')), true);
+        $chambas = json_decode(File::get(database_path('json/chambas.json')), true);
+        $images = json_decode(File::get(database_path('json/images.json')), true);
 
-        DB::table('users')->insert([
-            'name' => 'Duver',
-            'email' => 'duver@gmail.com',
-            'slug' => 'duver',
-            'password' => Hash::make('duver')
-        ]);
-        DB::table('users')->insert([
-            'name' => 'Jonathan',
-            'email' => 'jona@gmail.com',
-            'slug' => 'jonathan',
-            'password' => Hash::make('jona')
-        ]);
-        DB::table('users')->insert([
-            'name' => 'Adalberto',
-            'email' => 'adal@gmail.com',
-            'slug' => 'adalberto',
-            'password' => Hash::make('adalberto')
-        ]);
-        DB::table('users')->insert([
-            'name' => 'Worker1',
-            'email' => 'worker1@gmail.com',
-            'slug' => 'worker1',
-            'password' => Hash::make('worker1'),
-            'role' => '1'
-        ]);
-        DB::table('users')->insert([
-            'name' => 'Worker2',
-            'email' => 'worker2@gmail.com',
-            'slug' => 'worker2',
-            'password' => Hash::make('worker2'),
-            'role' => '1'
-        ]);
+        foreach ($users as $user) {
+            DB::table('users')->insert([
+                'name' => $user['name'],
+                'email' => $user['email'],
+                'phone_number' => $user['phone_number'],
+                'about_me' => $user['about_me'],
+                'postal_code' => $user['postal_code'],
+                'city' => $user['city'],
+                'street' => $user['street'],
+                'slug' => $user['slug'],
+                'password' => Hash::make($user['password']),
+                'role' => $user['role']
+            ]);
+        }
+
+        foreach ($chambas as $chamba) {
+            DB::table('chambas')->insert([
+                'title' => $chamba['title'],
+                'description' => $chamba['description'],
+                'slug' => $chamba['slug'],
+                'worker_id' => $chamba['worker_id'],
+                'job_id' => $chamba['job_id'],
+            ]);
+        }
+
+        foreach ($images as $image) {
+            DB::table('images')->insert([
+                'user_id' => $image['user_id'],
+                'image' => $image['image'],
+                'alt' => $image['alt'],
+                'path' => $image['path'],
+            ]);
+        }
     }
 }

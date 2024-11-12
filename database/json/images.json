@@ -1,0 +1,62 @@
+[
+    {
+        "user_id": "1",
+        "image": "albanil-1.jpg",
+        "alt": "albanil-1",
+        "path": "http://127.0.0.1:8000/gallery/albanil-1.jpg"
+    },
+    {
+        "user_id": "1",
+        "image": "albanil-2.jpg",
+        "alt": "albanil-2",
+        "path": "http://127.0.0.1:8000/gallery/albanil-2.jpg"
+    },
+    {
+        "user_id": "2",
+        "image": "plomero-1.jpg",
+        "alt": "plomero-2",
+        "path": "http://127.0.0.1:8000/gallery/plomero-2.jpg"
+    },
+    {
+        "user_id": "7",
+        "image": "electricista-2.jpg",
+        "alt": "electricista-2",
+        "path": "http://127.0.0.1:8000/gallery/electricista-2.jpg"
+    },
+    {
+        "user_id": "7",
+        "image": "pintor-2.jpg",
+        "alt": "pintor-2",
+        "path": "http://127.0.0.1:8000/gallery/pintor-2.jpg"
+    },
+    {
+        "user_id": "8",
+        "image": "carpintero-1.jpg",
+        "alt": "carpintero-1",
+        "path": "http://127.0.0.1:8000/gallery/carpintero-2.jpg"
+    },
+    {
+        "user_id": "12",
+        "image": "tecnico-1.jpg",
+        "alt": "tecnico-1",
+        "path": "http://127.0.0.1:8000/gallery/tecnico-2.jpg"
+    },
+    {
+        "user_id": "14",
+        "image": "electricista-1.jpg",
+        "alt": "electricista-1",
+        "path": "http://127.0.0.1:8000/gallery/electricista-2.jpg"
+    },
+    {
+        "user_id": "16",
+        "image": "carpintero-2.jpg",
+        "alt": "carpintero-2",
+        "path": "http://127.0.0.1:8000/gallery/carpintero-2.jpg"
+    },
+    {
+        "user_id": "10",
+        "image": "tecnico-2.jpg",
+        "alt": "tecnico-2",
+        "path": "http://127.0.0.1:8000/gallery/tecnico-2.jpg"
+    }
+]

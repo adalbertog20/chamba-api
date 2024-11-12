@@ -1,0 +1,72 @@
+[
+    {
+        "title": "Construcción de Casa",
+        "slug": "construccion-de-casa",
+        "description": "Construcción de una casa de dos pisos con acabados de lujo.",
+        "job_id": 1,
+        "worker_id": 1
+    },
+    {
+        "title": "Reparación de Tuberías",
+        "slug": "reparacion-de-tuberias",
+        "description": "Reparación de tuberías en una casa residencial.",
+        "job_id": 4,
+        "worker_id": 2
+    },
+    {
+        "title": "Instalación Eléctrica",
+        "slug": "instalacion-electrica",
+        "description": "Instalación de un sistema eléctrico en un edificio comercial.",
+        "job_id": 3,
+        "worker_id": 7
+    },
+    {
+        "title": "Pintura de Interiores",
+        "slug": "pintura-de-interiores",
+        "description": "Pintura de interiores de una casa con colores modernos.",
+        "job_id": 7,
+        "worker_id": 7
+    },
+    {
+        "title": "Fabricación de Muebles",
+        "slug": "fabricacion-de-muebles",
+        "description": "Fabricación de muebles de madera para una casa.",
+        "job_id": 2,
+        "worker_id": 8
+    },
+    {
+        "title": "Decoración de Interiores",
+        "slug": "decoracion-de-interiores",
+        "description": "Decoración de interiores de una casa con estilo minimalista.",
+        "job_id": 7,
+        "worker_id": 10
+    },
+    {
+        "title": "Instalación de Aire Acondicionado",
+        "slug": "instalacion-de-aire-acondicionado",
+        "description": "Instalación de un sistema de aire acondicionado en una oficina.",
+        "job_id": 10,
+        "worker_id": 12
+    },
+    {
+        "title": "Reparación de Instalaciones Eléctricas",
+        "slug": "reparacion-de-instalaciones-electricas",
+        "description": "Reparación de instalaciones eléctricas en una casa antigua.",
+        "job_id": 3,
+        "worker_id": 14
+    },
+    {
+        "title": "Construcción de Muebles",
+        "slug": "construccion-de-muebles",
+        "description": "Construcción de muebles personalizados para una oficina.",
+        "job_id": 2,
+        "worker_id": 16
+    },
+    {
+        "title": "Reparación de Sistemas de Seguridad",
+        "slug": "reparacion-de-sistemas-de-seguridad",
+        "description": "Reparación de sistemas de seguridad en un edificio comercial.",
+        "job_id": 3,
+        "worker_id": 10
+    }
+]
