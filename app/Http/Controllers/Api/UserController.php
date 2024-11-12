@@ -138,9 +138,7 @@ class UserController extends Controller
     public function getUserInfoSlug($slug)
     {
         $user = User::where('slug', $slug)->firstOrFail();
-        return response()->json([
-            'user' => $user
-        ]);
+        return response()->json($user);
     }
 
     public function getJobsBySlug($slug)
