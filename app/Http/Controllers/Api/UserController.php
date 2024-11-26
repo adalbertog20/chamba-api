@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Requests\User\UpdateUserRequest;
 use App\Models\User;
+use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -36,10 +37,21 @@ class UserController extends Controller
             ], 201);
         }
 
+        event(new Registered($user));
+
         return response()->json([
             'message' => 'User created',
             'user' => $user,
         ], 201);
+    }
+
+    public function destroy($id)
+    {
+        $user = User::find($id);
+        $user->delete();
+        return response()->json([
+            'message' => 'User Deleted Successfully'
+        ]);
     }
 
     public function update(Request $request)

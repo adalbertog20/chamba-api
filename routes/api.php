@@ -10,6 +10,17 @@ Route::post('/register', [UserController::class, 'store']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
 
+Route::middleware(['auth:sanctum'])->group(function () {
+    Route::post('/email/verify-notification', function (Request $request) {
+        $request->user()->sendEmailVerificationNotification();
+        return response()->json(['message' => 'Email verification link sent on your email id']);
+    });
+    Route::get('/email/verify/{id}/{hash}', function (\Illuminate\Foundation\Auth\EmailVerificationRequest $request) {
+        $request->fulfill();
+        return response()->json(['message' => 'Email has been verified']);
+    })->name('verification.verify');
+});
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
@@ -19,10 +30,12 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/user/updatePassword', [UserController::class, 'updatePassword']);
     Route::post('/user/updateJobs', [UserController::class, 'updateJobs']);
     Route::get('/user/showJobs', [UserController::class, 'showJobs']);
-    Route::post('/user/updateToWorker', [UserController::class, 'updateToWorker']);
+    Route::post('/user/updateToWorker', [UserController::class, 'updateToWorker'])->middleware('verified');
     Route::get('/user/{slug}/getWorkerChambas', [UserController::class, 'getWorkerChambas']);
     Route::get('/user/chats', [\App\Http\Controllers\Api\ChatController::class, 'index']);
 });
+
+Route::delete('/user/{id}', [UserController::class, 'destroy']);
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/chat/{uuid}/messages', [\App\Http\Controllers\Api\MessageController::class, 'index']);
